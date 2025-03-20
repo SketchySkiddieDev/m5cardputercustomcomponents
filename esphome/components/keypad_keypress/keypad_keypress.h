@@ -24,14 +24,57 @@ class KeypadKeypress : public Component, public TextSensor {
   }
 
   void update() override {
-    if (row1_->state && col1_->state) {
-      publish_state("Key 1 Pressed");
-    } else if (row1_->state && col2_->state) {
-      publish_state("Key 2 Pressed");
-    } else if (row2_->state && col1_->state) {
-      publish_state("Key 3 Pressed");
+    // Loop through all the rows and columns to detect key presses
+    if (row1_->state) {
+      if (col1_->state) publish_state("Key 1 Pressed");
+      if (col2_->state) publish_state("Key 2 Pressed");
+      if (col3_->state) publish_state("Key 3 Pressed");
+      if (col4_->state) publish_state("Key 4 Pressed");
+      if (col5_->state) publish_state("Key 5 Pressed");
+      if (col6_->state) publish_state("Key 6 Pressed");
+    } else if (row2_->state) {
+      if (col1_->state) publish_state("Key 7 Pressed");
+      if (col2_->state) publish_state("Key 8 Pressed");
+      if (col3_->state) publish_state("Key 9 Pressed");
+      if (col4_->state) publish_state("Key 10 Pressed");
+      if (col5_->state) publish_state("Key 11 Pressed");
+      if (col6_->state) publish_state("Key 12 Pressed");
+    } else if (row3_->state) {
+      if (col1_->state) publish_state("Key 13 Pressed");
+      if (col2_->state) publish_state("Key 14 Pressed");
+      if (col3_->state) publish_state("Key 15 Pressed");
+      if (col4_->state) publish_state("Key 16 Pressed");
+      if (col5_->state) publish_state("Key 17 Pressed");
+      if (col6_->state) publish_state("Key 18 Pressed");
+    } else if (row4_->state) {
+      if (col1_->state) publish_state("Key 19 Pressed");
+      if (col2_->state) publish_state("Key 20 Pressed");
+      if (col3_->state) publish_state("Key 21 Pressed");
+      if (col4_->state) publish_state("Key 22 Pressed");
+      if (col5_->state) publish_state("Key 23 Pressed");
+      if (col6_->state) publish_state("Key 24 Pressed");
+    } else if (row5_->state) {
+      if (col1_->state) publish_state("Key 25 Pressed");
+      if (col2_->state) publish_state("Key 26 Pressed");
+      if (col3_->state) publish_state("Key 27 Pressed");
+      if (col4_->state) publish_state("Key 28 Pressed");
+      if (col5_->state) publish_state("Key 29 Pressed");
+      if (col6_->state) publish_state("Key 30 Pressed");
+    } else if (row6_->state) {
+      if (col1_->state) publish_state("Key 31 Pressed");
+      if (col2_->state) publish_state("Key 32 Pressed");
+      if (col3_->state) publish_state("Key 33 Pressed");
+      if (col4_->state) publish_state("Key 34 Pressed");
+      if (col5_->state) publish_state("Key 35 Pressed");
+      if (col6_->state) publish_state("Key 36 Pressed");
+    } else if (row7_->state) {
+      if (col1_->state) publish_state("Key 37 Pressed");
+      if (col2_->state) publish_state("Key 38 Pressed");
+      if (col3_->state) publish_state("Key 39 Pressed");
+      if (col4_->state) publish_state("Key 40 Pressed");
+      if (col5_->state) publish_state("Key 41 Pressed");
+      if (col6_->state) publish_state("Key 42 Pressed");
     }
-    // Add more logic for additional keys
   }
 
  protected:
