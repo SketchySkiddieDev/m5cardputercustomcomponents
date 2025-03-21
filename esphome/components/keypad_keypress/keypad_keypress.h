@@ -24,34 +24,60 @@ class KeypadKeypress : public Component, public TextSensor {
   }
 
   void update() override {
-    // Loop through all rows and columns to detect key presses
-    for (int row = 0; row < 7; ++row) {
-      setRow(row);  // Activate the current row via the multiplexer
-
-      // Debugging: Print which row is being activated
-      ESP_LOGD("keypad", "Activating Row %d", row);
-
-      // Check each column for key press
-      for (int col = 0; col < 6; ++col) {
-        if (getColumnState(col)) {
-          // Publish key press event based on the row and column
-          String key = "Key " + String(row * 6 + col + 1) + " Pressed";
-          publish_state(key);
-
-          // Debugging: Print which key was pressed
-          ESP_LOGD("keypad", "Key %d pressed", row * 6 + col + 1);
-        }
-      }
-
-      // Small debounce delay to avoid multiple triggers for the same key
-      delay(50);  // Adjust this delay as needed for stability
-
-      deactivateRow(row);  // Deactivate the current row after checking
+    // Loop through all the rows and columns to detect key presses
+    if (row1_->state) {
+      if (col1_->state) publish_state("Key 1 Pressed");
+      if (col2_->state) publish_state("Key 2 Pressed");
+      if (col3_->state) publish_state("Key 3 Pressed");
+      if (col4_->state) publish_state("Key 4 Pressed");
+      if (col5_->state) publish_state("Key 5 Pressed");
+      if (col6_->state) publish_state("Key 6 Pressed");
+    } else if (row2_->state) {
+      if (col1_->state) publish_state("Key 7 Pressed");
+      if (col2_->state) publish_state("Key 8 Pressed");
+      if (col3_->state) publish_state("Key 9 Pressed");
+      if (col4_->state) publish_state("Key 10 Pressed");
+      if (col5_->state) publish_state("Key 11 Pressed");
+      if (col6_->state) publish_state("Key 12 Pressed");
+    } else if (row3_->state) {
+      if (col1_->state) publish_state("Key 13 Pressed");
+      if (col2_->state) publish_state("Key 14 Pressed");
+      if (col3_->state) publish_state("Key 15 Pressed");
+      if (col4_->state) publish_state("Key 16 Pressed");
+      if (col5_->state) publish_state("Key 17 Pressed");
+      if (col6_->state) publish_state("Key 18 Pressed");
+    } else if (row4_->state) {
+      if (col1_->state) publish_state("Key 19 Pressed");
+      if (col2_->state) publish_state("Key 20 Pressed");
+      if (col3_->state) publish_state("Key 21 Pressed");
+      if (col4_->state) publish_state("Key 22 Pressed");
+      if (col5_->state) publish_state("Key 23 Pressed");
+      if (col6_->state) publish_state("Key 24 Pressed");
+    } else if (row5_->state) {
+      if (col1_->state) publish_state("Key 25 Pressed");
+      if (col2_->state) publish_state("Key 26 Pressed");
+      if (col3_->state) publish_state("Key 27 Pressed");
+      if (col4_->state) publish_state("Key 28 Pressed");
+      if (col5_->state) publish_state("Key 29 Pressed");
+      if (col6_->state) publish_state("Key 30 Pressed");
+    } else if (row6_->state) {
+      if (col1_->state) publish_state("Key 31 Pressed");
+      if (col2_->state) publish_state("Key 32 Pressed");
+      if (col3_->state) publish_state("Key 33 Pressed");
+      if (col4_->state) publish_state("Key 34 Pressed");
+      if (col5_->state) publish_state("Key 35 Pressed");
+      if (col6_->state) publish_state("Key 36 Pressed");
+    } else if (row7_->state) {
+      if (col1_->state) publish_state("Key 37 Pressed");
+      if (col2_->state) publish_state("Key 38 Pressed");
+      if (col3_->state) publish_state("Key 39 Pressed");
+      if (col4_->state) publish_state("Key 40 Pressed");
+      if (col5_->state) publish_state("Key 41 Pressed");
+      if (col6_->state) publish_state("Key 42 Pressed");
     }
   }
 
  protected:
-  // Row and column binary sensors
   BinarySensor *row1_;
   BinarySensor *row2_;
   BinarySensor *row3_;
@@ -65,35 +91,4 @@ class KeypadKeypress : public Component, public TextSensor {
   BinarySensor *col4_;
   BinarySensor *col5_;
   BinarySensor *col6_;
-
-  // Method to set the correct row using the 74hc138 multiplexer logic
-  void setRow(int row) {
-    // Set the appropriate multiplexer address lines (A0, A1, A2) based on the row
-    // Implement the logic to select the correct row using the GPIO pins controlling A0, A1, A2 of the 74hc138
-    // Example (adjust as necessary):
-    digitalWrite(A0, (row & 0x01) ? HIGH : LOW);
-    digitalWrite(A1, (row & 0x02) ? HIGH : LOW);
-    digitalWrite(A2, (row & 0x04) ? HIGH : LOW);
-  }
-
-  // Method to deactivate the current row
-  void deactivateRow(int row) {
-    // Implement logic to disable the current row by setting the appropriate address lines low
-    digitalWrite(A0, LOW);
-    digitalWrite(A1, LOW);
-    digitalWrite(A2, LOW);
-  }
-
-  // Method to read the state of a column binary sensor
-  bool getColumnState(int col) {
-    switch (col) {
-      case 0: return col1_->state;
-      case 1: return col2_->state;
-      case 2: return col3_->state;
-      case 3: return col4_->state;
-      case 4: return col5_->state;
-      case 5: return col6_->state;
-      default: return false;
-    }
-  }
 };
